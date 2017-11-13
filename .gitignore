@@ -1,0 +1,21 @@
+
+**/*.swp
+**/*.py.swp
+
+.Python
+
+# Virtualenv
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+.env
+
+
+# pycharm
+.idea/
+
+
+
