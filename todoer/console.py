@@ -1,5 +1,5 @@
 from comment import Comment
-import sys
+import sys, subprocess, os
 import logging
 from termcolor import colored
 
@@ -77,11 +77,30 @@ class Console:
         self.handler.setFormatter(ColorLogFormatter())
         self.handler.setLevel(logging.DEBUG)
         self.logger.addHandler(self.handler)
+        self.pager = subprocess.Popen(['less', '-F', '-R', '-S', '-X', '-K'],
+                                 stdin=subprocess.PIPE,
+                                 stdout=sys.stdout)
+
+    def pager(self, data):
+        if type(data) is Comment:
+            self.pager.stdin.write(data)
+            self.pager.stdin.close()
+            self.pager.wait()
+        elif type(data) is list:
+            for item in data:
+                self.pager.stdin.write(item)
+            self.pager.stdin.close()
+            self.pager.wait()
+
+        pass
 
     def print(self, data):
 
         if type(data) is Comment:
             self.logger.debug(data)
+        elif type(data) is list:
+            for item in data:
+                self.logger.debug(item)
 
     def print_added(self):
 
@@ -105,11 +124,3 @@ class Console:
             Console.__instance = Console()
 
         return Console.__instance
-
-
-
-
-
-
-
-

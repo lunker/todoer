@@ -1,3 +1,15 @@
+from enum import Enum
+
+class CommentType(Enum):
+    todo=1
+
+    def enum(*sequential, **named):
+        enums = dict(zip(sequential, range(len(sequential))), **named)
+        reverse = dict((value, key) for key, value in enums.iteritems())
+        enums['reverse'] = reverse
+        return type('Enum', (), enums)
+
+
 class CommentFactory:
 
     @staticmethod
@@ -40,7 +52,7 @@ class Comment:
         return self
 
     def __str__(self):
-        comment = "type: {type}, file_name: {file_name}, content: {content}".format(type=self.type, file_name=self.file_name, content=self.content)
+        comment = "comment_type: {comment_type}, file_name: {file_name}, content: {content}".format(comment_type=self.comment_type, file_name=self.file_name, content=self.content)
         return comment
 
 

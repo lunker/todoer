@@ -2,6 +2,7 @@ import os
 import re
 from comment import Comment
 
+
 class Reader:
 
     def __init__(self):
@@ -10,43 +11,6 @@ class Reader:
             'include',
             'lib'
         ]
-
-    def get_project_root(self):
-        """
-            find current project's root path 
-
-        :return: git_path
-        :rtype: str
-        """
-
-        git_path = None
-        current_path = os.getcwd()
-
-        for project_root_path in self.__upward(current_path):
-            if '.git' in os.listdir(project_root_path):
-                git_path = project_root_path
-                break
-
-        return git_path
-
-    @staticmethod
-    def __upward(path):
-        """
-            Find path of upward
-            
-        :param path:
-        :type path: str
-        :return: upward_path
-        :rtype: str
-        """
-
-        occurrence = path.count('/')
-        last_idx = len(path)
-
-        for idx in range(occurrence):
-            if last_idx != -1:
-                yield path[:last_idx]
-                last_idx = path.rfind('/', 0, last_idx)
 
     def find_comment(self, python_src, type):
         """ 
@@ -67,8 +31,8 @@ class Reader:
             result_list = todo_regex.findall(source)
 
             for result in result_list:
-                print("todo comment ::\n" + result)
-                comment = Comment('todo', 'test_file_name', result)
+                # print("todo comment ::\n" + result)
+                comment = Comment('todo', 'test_file_name', result, 'None status')
                 comment_list.append(comment)
 
         f.closed
