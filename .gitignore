@@ -17,5 +17,13 @@
 # pycharm
 .idea/
 
+# pyinstaller
+bin/
+dist/
+build/
+
+
+# pycache
+**/__pycache__/
 
 

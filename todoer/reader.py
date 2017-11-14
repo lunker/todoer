@@ -5,7 +5,7 @@ from comment import Comment
 class Reader:
 
     def __init__(self):
-        self.dir_except = [
+        self.except_dir_list = [
             'bin',
             'include',
             'lib'
@@ -63,22 +63,25 @@ class Reader:
 
         with open(python_src) as f:
             source = f.read()
-            print("python file: " + python_src)
-            # print(source)
 
-            result = todo_regex.search(source)
-            if result is not None:
-                print("todo comment ::\n" + result.group())
-                comment = Comment()
+            result_list = todo_regex.findall(source)
+
+            for result in result_list:
+                print("todo comment ::\n" + result)
+                comment = Comment('todo', 'test_file_name', result)
                 comment_list.append(comment)
-            else:
-                print("No todo comment!")
 
         f.closed
 
         return comment_list
 
     def search_git_project(self, root_path):
+        """
+        
+        :param root_path: 
+        :return: comment_list
+        :rtype: list of Comment
+        """
         comment_list = list()
 
         for python_src in self.__file_system_search(root_path):
@@ -102,10 +105,9 @@ class Reader:
 
             if os.path.isfile(full_path):
                 # File
-                print("iterated path: " + full_path)
                 if '.py' in full_path:
                     yield full_path
             else:
                 # Directory
-                if '.git' not in full_path:
+                if fd in self.except_dir_list:
                     yield from self.__file_system_search(full_path)

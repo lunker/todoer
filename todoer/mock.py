@@ -164,10 +164,13 @@ def _validate(headers, key, subprotocols):
     hashed = base64encode(hashlib.sha1(value).digest()).strip().lower()
     success = compare_digest(hashed, result)
 
+    # todo(lunker): test todo comment3333
     if success:
         return True, subproto
     else:
         return False, None
+
+        # todo(lunker): test todo comment2
 
 
 def _create_sec_websocket_key():
