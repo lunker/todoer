@@ -7,11 +7,11 @@ class FileUtil:
     @staticmethod
     def find_project_root():
         """
-                    find current project's root path 
+            find current git project's root path     
 
-                :return: git_path
-                :rtype: str
-                """
+        :return: git_path
+        :rtype: str
+        """
 
         git_path = None
         current_path = os.getcwd()

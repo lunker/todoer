@@ -1,6 +1,6 @@
 import os
 import re
-from comment import Comment
+from comment.comment import Comment
 
 
 class Reader:
@@ -12,32 +12,7 @@ class Reader:
             'lib'
         ]
 
-    def find_comment(self, python_src, type):
-        """ 
-            Read Source file & find given type comments 
-             
-        :param python_src: Python file full path
-        :type python_src: str
-        :param type: comment type
-        :type type: str (todo, fixme, hack . . . )
-        :return: 
-        """
-        comment_list = list()
-        todo_regex = re.compile('# ?[Tt]odo.*')
 
-        with open(python_src) as f:
-            source = f.read()
-
-            result_list = todo_regex.findall(source)
-
-            for result in result_list:
-                # print("todo comment ::\n" + result)
-                comment = Comment('todo', 'test_file_name', result, 'None status')
-                comment_list.append(comment)
-
-        f.closed
-
-        return comment_list
 
     def search_git_project(self, root_path):
         """

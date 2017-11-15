@@ -1,4 +1,5 @@
-from comment import Comment
+from comment.comment import CommentStatus
+from comment.comment import Comment
 import sys, subprocess, os
 import logging
 from termcolor import colored
@@ -103,7 +104,6 @@ class Console:
                 self.logger.debug(item)
 
     def print_added(self):
-
         pass
 
     def print_deleted(self):
@@ -112,6 +112,26 @@ class Console:
     def print_modified(self):
         pass
 
+    def print_status(self, status_result):
+        """
+        
+        :param status_result:
+        :type status_result: dict
+        :return: 
+        """
+
+        keys = status_result.keys()
+
+        for key in keys:
+            print(colored("File: {key}".format(key=key), 'blue', attrs=['bold']))
+
+            comment_list = status_result.get(key)
+
+            for comment in comment_list:
+                if comment.status is CommentStatus.ADDED:
+                    print(colored(comment, 'green'))
+                elif comment.status is CommentStatus.DELETED:
+                    print(colored(comment, 'red'))
 
     @staticmethod
     def get_instance():

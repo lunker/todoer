@@ -20,7 +20,7 @@ class TestGit(unittest.TestCase):
         hcommit = repo.head.commit
 
         # Traverse added Diff objects only#
-        for diff_added in hcommit.diff(None, '/Users/voiceloco/work/pythonspace/lunker_cli/src/App.py').iter_change_type('M'):
+        for diff_added in hcommit.diff_current_dir(None, '/Users/voiceloco/work/pythonspace/lunker_cli/src/App.py').iter_change_type('M'):
             # print ()
             print(diff_added)
             pass
