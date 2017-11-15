@@ -50,6 +50,9 @@ class PostProcessor:
 
 
 class Dispatcher:
+
+    command_list = ['diff', 'list', 'init', 'status', 'search', 'help']
+
     @staticmethod
     def handle(command):
         """
@@ -59,17 +62,12 @@ class Dispatcher:
         :param data: 
         :return: 
         """
-        if command.command == 'diff':
-            Diff().handle(command=command)
-            pass
-        elif command.command == 'list':
-            List().handle(command=command)
-            pass
-        elif command.command == 'init':
-            Init().handle(command=command)
-        elif command.command == 'status':
-            # GitHelper.status()
-            Status().handle()
-        elif command.command == 'search':
-            Search().handle()
 
+        if command.command in Dispatcher.command_list:
+            class_name = list(command.command)
+            class_name[0] = command.command[0].upper()
+            class_name = ''.join(class_name)
+
+            # handler = type(class_name, (), {})
+            handler = globals()[class_name]
+            handler().handle(command=command)

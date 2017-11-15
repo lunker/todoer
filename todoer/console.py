@@ -93,8 +93,6 @@ class Console:
             self.pager.stdin.close()
             self.pager.wait()
 
-        pass
-
     def print(self, data):
 
         if type(data) is Comment:
@@ -102,6 +100,8 @@ class Console:
         elif type(data) is list:
             for item in data:
                 self.logger.debug(item)
+        else:
+            print(data)
 
     def print_added(self):
         pass
